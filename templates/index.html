@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Medicine Alert</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>💊 Medicine Expiry Alert System</h1>
+
+    <form action="/add" method="post">
+      <input type="text" name="name" placeholder="Medicine Name" required>
+      <input type="date" name="expiry" required>
+      <input type="number" name="quantity" placeholder="Quantity" required>
+      <button type="submit">Add Medicine</button>
+    </form>
+
+    <h2>Medicine List</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Expiry</th>
+      <th>Quantity</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for med in medicines %}
+    <tr class="{{ 'expired' if med.status == 'Expired' else 'expiring' if med.status == 'Expiring Soon' else '' }}">
+      <td>{{ med.name }}</td>
+      <td>{{ med.expiry_date }}</td>
+      <td>{{ med.quantity }}</td>
+      <td>{{ med.status }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>
